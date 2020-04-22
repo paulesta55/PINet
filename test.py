@@ -9,6 +9,7 @@ import json
 import torch
 import agent
 import numpy as np
+import os
 from copy import deepcopy
 from data_loader import Generator
 import time
@@ -29,7 +30,7 @@ def Testing():
     ## Get dataset
     #########################################################################
     print("Get dataset")
-    loader = Generator()
+    #loader = Generator()
 
     ##############################
     ## Get agent and model
@@ -50,9 +51,9 @@ def Testing():
     ##############################
     ## testing
     ##############################
-    print('Testing loop')
+    #print('Testing loop')
     lane_agent.evaluate_mode()
-
+    #print('mode '+p.mode)
     if p.mode == 0 : # check model with test data 
         for _, _, _, test_image in loader.Generate():
             _, _, ti = test(lane_agent, np.array([test_image]))
@@ -79,12 +80,14 @@ def Testing():
         cv2.destroyAllWindows()
 
     elif p.mode == 2: # check model with a picture
-        test_image = cv2.imread(p.test_root_url+"clips/0530/1492720840345996040_0/20.jpg")
-        test_image = cv2.resize(test_image, (512,256))/255.0
-        test_image = np.rollaxis(test_image, axis=2, start=0)
-        _, _, ti = test(lane_agent, np.array([test_image]))
-        cv2.imshow("test", ti[0])
-        cv2.waitKey(0)   
+        path="bdd_frames/1e7bd1d0-fc7777af"
+        for image_path in os.listdir(path):
+            test_image = cv2.imread(os.path.join(path,image_path))
+            test_image = cv2.resize(test_image, (512,256))/255.0
+            test_image = np.rollaxis(test_image, axis=2, start=0)
+            _, _, ti = test(lane_agent, np.array([test_image]))
+            cv2.imwrite("results_bdd_frames/1e7bd1d0-fc7777af/{}".format(image_path), ti[0])
+        return
 
     elif p.mode == 3: #evaluation
         print("evaluate")

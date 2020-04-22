@@ -19,7 +19,7 @@ class Parameters():
     grid_y = y_size/resize_ratio  #32
     feature_size = 4
     regression_size = 110
-    mode = 3
+    mode = 2
     threshold_point = 0.81
     threshold_instance = 0.22
 
@@ -49,7 +49,7 @@ class Parameters():
     scaling_ratio=0.2
     
     train_root_url="TuSimple_dataset/train_set/"
-    test_root_url="TuSimple_dataset/test_set/"
+    test_root_url="bdd_frames/"
 
     # test parameter
     color = [(0,0,0), (255,0,0), (0,255,0),(0,0,255),(255,255,0),(255,0,255),(0,255,255),(255,255,255),(100,255,0),(100,0,255),(255,100,0),(0,100,255),(255,0,100),(0,255,100)]
